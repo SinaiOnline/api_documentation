@@ -158,7 +158,7 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 Este endpoint retorna a lista de bairros, cidades e tipos de imóveis válidos que podem ser usados nos filtros de busca.
 
 #### **Endpoint**  
-`GET https://api.sinaionline.com.br/api/v1/agencies/<codigo_da_imobiliaria>/properties/distinctTypesAndNeighborhoods`
+`GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/distinctTypesAndNeighborhoods`
 
 #### **Resposta Esperada**
 
