@@ -20,9 +20,9 @@ Este endpoint permite realizar buscas de imóveis, aplicando filtros conforme os
 Todos os parâmetros são **opcionais** e podem ser combinados para refinar a busca:
 
 - **offerType**: Tipo da oferta do imóvel. Aceita os valores `'VENDA'` ou `'ALUGUEL'`.
-- **neighborhoods**: Nomes dos bairros separados por vírgula. Para obter a lista de bairros válidos, consulte o endpoint [distinctTypesAndNeighborhoods](#distincttypesandneighborhoods).
-- **propertyTypes**: Tipos de imóveis separados por vírgula. Para obter a lista de tipos válidos, consulte o endpoint [distinctTypesAndNeighborhoods](#distincttypesandneighborhoods).
-- **cities**: Nomes das cidades separados por vírgula. Para obter a lista de cidades válidas, consulte o endpoint [distinctTypesAndNeighborhoods](#distincttypesandneighborhoods).
+- **neighborhoods**: Nomes dos bairros separados por vírgula. Para obter a lista de bairros válidos, consulte o endpoint [distinctTypesAndNeighborhoods](#distinctTypesAndNeighborhoods).
+- **propertyTypes**: Tipos de imóveis separados por vírgula. Para obter a lista de tipos válidos, consulte o endpoint [distinctTypesAndNeighborhoods](#distinctTypesAndNeighborhoods).
+- **cities**: Nomes das cidades separados por vírgula. Para obter a lista de cidades válidas, consulte o endpoint [distinctTypesAndNeighborhoods](#distinctTypesAndNeighborhoods).
 - **captador**: Nome do captador (corretor) responsável pelo imóvel.
 - **codes**: IDs específicos dos imóveis.
 - **isTop**: Flag que indica se o imóvel é destacado como "top" (`true` ou `false`).
@@ -153,7 +153,7 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 
 ---
 
-### **[Endpoint DistinctTypesAndNeighborhoods](#distincttypesandneighborhoods)**
+### **[Endpoint DistinctTypesAndNeighborhoods](#distinctTypesAndNeighborhoods)**
 
 Este endpoint retorna a lista de bairros, cidades e tipos de imóveis válidos que podem ser usados nos filtros de busca.
 
