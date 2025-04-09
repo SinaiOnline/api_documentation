@@ -132,16 +132,7 @@ Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
       "imageURLs": [
         "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_01.jpg",
         "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_02.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_03.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_04.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_05.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_06.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_07.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_08.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_09.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_10.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_11.jpg",
-        "https://sistemasinaionline.com.br/sinaionline/imagens/9999_2801_12.jpg"
+        ...
       ],
       "proprietario": "********",
       "endereco": "********",
@@ -199,17 +190,15 @@ A resposta será um JSON contendo três listas:
 GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/<codigo_do_imovel>/similar
 ```
 
-Retorna um array com imóveis similares ao imóvel informado com base em critérios como localização, tipo, preço, e número de dormitórios. Caso não haja imóveis similares, retorna um array vazio.
+Retorna um array com até 4 imóveis similares ao imóvel base. Caso não haja imóveis similares, retorna um array vazio.
 
 #### Parâmetros da URL
 - `<codigo_da_imobiliaria>`: Código da imobiliária.
 - `<codigo_do_imovel>`: Código do imóvel base.
 
-As propriedades retornadas como similares são definidas com base nos seguintes critérios:
+As propriedades são consideradas como similares com base nos seguintes critérios:
 
 - Preço entre 80% e 120% do valor do imóvel base.
 - Mesma quantidade de quartos.
 - Mesmo tipo de imóvel (ex: casa, apartamento).
 - Mesmo tipo de oferta: `VENDA` ou `ALUGUEL`.
-
-Até 4 imóveis são retornados.
