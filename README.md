@@ -1,34 +1,33 @@
 ## Documentação da API do Sinai Online
 
 ### **URL**
-`https://api.sinaionline.com.br`
+https://api.sinaionline.com.br
 
 
 ### **Autorização**  
 Todas as requisições devem incluir um cabeçalho de autorização com o token da imobiliária, fornecido pela Sinaionline. Exemplo:
 
-```
 Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-```
+
 
 ### **Endpoint para Busca de Imóveis**  
-`GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/search`
+GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/search
 
 Este endpoint permite realizar buscas de imóveis, aplicando filtros conforme os parâmetros fornecidos na query. Os parâmetros que podem ser utilizados são explicados abaixo.
 
 ### **Parâmetros da Query**  
 Todos os parâmetros são **opcionais** e podem ser combinados para refinar a busca:
 
-- **offerType**: Tipo da oferta do imóvel. Aceita os valores `'VENDA'` ou `'ALUGUEL'`.
+- **offerType**: Tipo da oferta do imóvel. Aceita os valores 'VENDA' ou 'ALUGUEL'.
 - **neighborhoods**: Nomes dos bairros separados por vírgula. Para obter a lista de bairros válidos, consulte o endpoint [distinctTypesAndNeighborhoods](#distinctTypesAndNeighborhoods).
 - **propertyTypes**: Tipos de imóveis separados por vírgula. Para obter a lista de tipos válidos, consulte o endpoint [distinctTypesAndNeighborhoods](#distinctTypesAndNeighborhoods).
 - **cities**: Nomes das cidades separados por vírgula. Para obter a lista de cidades válidas, consulte o endpoint [distinctTypesAndNeighborhoods](#distinctTypesAndNeighborhoods).
 - **captador**: Nome do captador (corretor) responsável pelo imóvel.
 - **codes**: IDs específicos dos imóveis.
-- **isTop**: Flag que indica se o imóvel é destacado como "top" (`true` ou `false`).
-- **isExclusive**: Flag que indica se o imóvel é exclusivo (`true` ou `false`).
-- **isHighlight**: Flag que indica se o imóvel é destacado como "highlight" (`true` ou `false`).
-- **isNewRelease**: Flag que indica se o imóvel é lançamento (`true` ou `false`).
+- **isTop**: Flag que indica se o imóvel é destacado como "top" (true ou false).
+- **isExclusive**: Flag que indica se o imóvel é exclusivo (true ou false).
+- **isHighlight**: Flag que indica se o imóvel é destacado como "highlight" (true ou false).
+- **isNewRelease**: Flag que indica se o imóvel é lançamento (true ou false).
 - **minPrice**: Preço mínimo do imóvel.
 - **maxPrice**: Preço máximo do imóvel.
 - **minArea**: Área mínima do imóvel em metros quadrados.
@@ -38,35 +37,31 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 - **garages**: Número de vagas de garagem.
 - **page**: Página de resultados (para paginação).
 - **limit**: Limite de resultados por página.
-- **sortBy**: Critério de ordenação. Pode ser `'price'`, `'registerDate'` ou `'updateDate'` (valor padrão: `'price'`).
-- **sortDir**: Direção da ordenação. Pode ser `'ASC'` (ascendente) ou `'DESC'` (descendente).
-- **randomOrder**: Se `true`, os resultados serão retornados de forma aleatória, ignorando a ordenação especificada.
+- **sortBy**: Critério de ordenação. Pode ser 'price', 'registerDate' ou 'updateDate' (valor padrão: 'price').
+- **sortDir**: Direção da ordenação. Pode ser 'ASC' (ascendente) ou 'DESC' (descendente).
+- **randomOrder**: Se true, os resultados serão retornados de forma aleatória, ignorando a ordenação especificada.
 
 ### **Exemplos de Requisições**
 
 1. **Busca por imóveis à venda em bairros específicos com preço máximo:**
-   ```http
-   GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?offerType=VENDA&neighborhoods=Centro,Boqueirão&maxPrice=500000
-   Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-   ```
+   
+GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?offerType=VENDA&neighborhoods=Centro,Boqueirão&maxPrice=500000  
+Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 
 2. **Busca por imóveis para aluguel com área mínima e 2 dormitórios:**
-   ```http
-   GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?offerType=ALUGUEL&minArea=50&bedrooms=2
-   Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-   ```
+   
+GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?offerType=ALUGUEL&minArea=50&bedrooms=2  
+Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 
 3. **Busca por imóveis exclusivos, com 3 suítes, ordenados por preço em ordem descendente:**
-   ```http
-   GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?isExclusive=true&suites=3&sortBy=price&sortDir=DESC
-   Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-   ```
+   
+GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?isExclusive=true&suites=3&sortBy=price&sortDir=DESC  
+Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 
 4. **Busca por imóveis aleatórios sem filtros adicionais:**
-   ```http
-   GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?randomOrder=true
-   Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
-   ```
+   
+GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?randomOrder=true  
+Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 
 **Exemplo de resposta:**
 ```json
@@ -142,7 +137,7 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
             "proprietario": "********",
             "endereco": "********",
             "chaves": "********"
-        },
+        }
     ],
     "total": 6,
     "page": 1,
@@ -153,15 +148,17 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 
 ---
 
-### **[Endpoint DistinctTypesAndNeighborhoods](#distinctTypesAndNeighborhoods)**
+### **[Opções de bairros, cidades e tipos de imóvel para filtros de busca](#distinctTypesAndNeighborhoods)**
 
 Este endpoint retorna a lista de bairros, cidades e tipos de imóveis válidos que podem ser usados nos filtros de busca.
 
 #### **Endpoint**  
-`GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/distinctTypesAndNeighborhoods`
+GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/distinctTypesAndNeighborhoods
+
+#### **Parâmetros da URL**
+- <codigo_da_imobiliaria>: Código da imobiliária.
 
 #### **Resposta Esperada**
-
 A resposta será um JSON contendo três listas:
 
 - **neighborhoods**: Lista de bairros válidos.
@@ -183,13 +180,23 @@ A resposta será um JSON contendo três listas:
 }
 ```
 
+---
+
 ### **Endpoint para Imóveis Similares**
 
-`GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/<codigo_do_imovel>/similar`
+GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/<codigo_do_imovel>/similar
 
 Retorna um array com imóveis similares ao imóvel informado com base em critérios como localização, tipo, preço, e número de dormitórios. Caso não haja imóveis similares, retorna um array vazio.
 
 #### **Parâmetros da URL**
+- <codigo_da_imobiliaria>: Código da imobiliária.
+- <codigo_do_imovel>: Código do imóvel base.
 
-- `<codigo_da_imobiliaria>`: Código da imobiliária.
-- `<codigo_do_imovel>`: Código do imóvel base.
+As propriedades retornadas como similares são definidas com base nos seguintes critérios extraídos do imóvel de referência:
+
+- Preço entre 80% e 120% do valor do imóvel base.
+- Mesma quantidade de quartos.
+- Mesmo tipo de imóvel (ex: casa, apartamento).
+- Mesmo tipo de oferta, como "VENDA" ou "ALUGUEL".
+
+Até 4 imóveis são retornados.
