@@ -182,3 +182,14 @@ A resposta será um JSON contendo três listas:
     ]
 }
 ```
+
+### **Endpoint para Imóveis Similares**
+
+`GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/<codigo_do_imovel>/similar`
+
+Retorna um array com imóveis similares ao imóvel informado com base em critérios como localização, tipo, preço, e número de dormitórios. Caso não haja imóveis similares, retorna um array vazio.
+
+#### **Parâmetros da URL**
+
+- `<codigo_da_imobiliaria>`: Código da imobiliária.
+- `<codigo_do_imovel>`: Código do imóvel base.
