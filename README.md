@@ -1,4 +1,4 @@
-## Documentação da API do Sinai Online
+## Documentação da API do Sistema Sinaionline
 
 ### URL
 ```text
