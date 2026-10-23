@@ -25,8 +25,8 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 
 - `offerType`: Tipo da oferta do imóvel. Aceita os valores `VENDA` ou `ALUGUEL`.
 - `neighborhoods`: Nomes dos bairros separados por vírgula. Para obter a lista de bairros válidos, consulte o endpoint [`filter-data`](#endpoint-para-dados-de-filtro-de-busca) abaixo.
-- `propertyTypes`: Tipos de imóveis separados por vírgula.
-- `cities`: Nomes das cidades separados por vírgula.
+- `propertyTypes`: Tipos de imóveis separados por vírgula. Para obter a lista de tipos válidos, consulte o endpoint [`filter-data`](#endpoint-para-dados-de-filtro-de-busca) abaixo.
+- `cities`: Nomes das cidades separados por vírgula. Para obter a lista de cidades válidas, consulte o endpoint [`filter-data`](#endpoint-para-dados-de-filtro-de-busca) abaixo.
 - `captador`: Nome do captador (corretor) responsável pelo imóvel.
 - `codes`: IDs específicos dos imóveis.
 - `isTop`: Flag que indica se o imóvel é destacado como "top" (`true` ou `false`).
