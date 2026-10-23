@@ -150,13 +150,12 @@ GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?rando
 ---
 
 ### Endpoint para dados de filtro de busca
-
-Este endpoint retorna as opções disponíveis de tipos de imóveis, cidades e bairros que podem ser utilizados nos filtros de busca. É possível enviar parâmetros opcionais na query para refinar os resultados, fazendo com que as opções retornadas sejam compatíveis com os critérios informados.
-
-#### Endpoint
 ```http
 GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/filter-data
 ```
+
+Este endpoint retorna as opções disponíveis de tipos de imóveis, cidades e bairros que podem ser utilizados nos filtros de busca. É possível enviar parâmetros opcionais na query para refinar os resultados, fazendo com que as opções retornadas sejam compatíveis com os critérios informados.
+
 #### Parâmetros da query
 
 - offerType: ao informar VENDA, o endpoint retorna as opções relacionadas aos imóveis disponíveis para venda. Ao informar ALUGUEL, retorna as opções relacionadas aos imóveis disponíveis para aluguel.
@@ -227,14 +226,11 @@ As propriedades são consideradas como similares com base nos seguintes critéri
 ---
 
 ### Endpoint para armazenamento de leads
-
-O endpoint permite salvar mensagens de leads e pode ser utilizado por sites imobiliários, landing pages, formulários de contato e outras aplicações integradas ao Sinaionline.
-
-#### Endpoint
-
 ```http
 POST /api/v1/agencies/<codigo_da_imobiliaria>/leads
 ```
+
+O endpoint permite salvar mensagens de leads e pode ser utilizado por sites imobiliários, landing pages, formulários de contato e outras aplicações integradas ao Sinaionline.
 
 #### Corpo da requisição
 
