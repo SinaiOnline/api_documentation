@@ -24,7 +24,7 @@ Este endpoint permite realizar buscas de imóveis, aplicando filtros conforme os
 Todos os parâmetros são **opcionais** e podem ser combinados para refinar a busca:
 
 - `offerType`: Tipo da oferta do imóvel. Aceita os valores `VENDA` ou `ALUGUEL`.
-- `neighborhoods`: Nomes dos bairros separados por vírgula. Para obter a lista de bairros válidos, consulte o endpoint [`distinctTypesAndNeighborhoods`](#opções-de-bairros-cidades-e-tipos-de-imóvel-para-filtros-de-busca).
+- `neighborhoods`: Nomes dos bairros separados por vírgula. Para obter a lista de bairros válidos, consulte o endpoint [`filter-data`](#endpoint-para-dados-de-filtro-de-busca) abaixo.
 - `propertyTypes`: Tipos de imóveis separados por vírgula.
 - `cities`: Nomes das cidades separados por vírgula.
 - `captador`: Nome do captador (corretor) responsável pelo imóvel.
@@ -51,25 +51,21 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 **1. Busca por imóveis à venda em bairros específicos com preço máximo:**
 ```http
 GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?offerType=VENDA&neighborhoods=Centro,Boqueirão&maxPrice=500000
-Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 ```
 
 **2. Busca por imóveis para aluguel com área mínima e 2 dormitórios:**
 ```http
 GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?offerType=ALUGUEL&minArea=50&bedrooms=2
-Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 ```
 
 **3. Busca por imóveis exclusivos, com 3 suítes, ordenados por preço em ordem descendente:**
 ```http
 GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?isExclusive=true&suites=3&sortBy=price&sortDir=DESC
-Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 ```
 
 **4. Busca por imóveis aleatórios sem filtros adicionais:**
 ```http
 GET https://api.sinaionline.com.br/api/v1/agencies/12345/properties/search?randomOrder=true
-Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 ```
 
 **Exemplo de resposta:**
@@ -148,19 +144,42 @@ Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX
 
 ---
 
-### Opções de bairros, cidades e tipos de imóvel para filtros de busca
+### Endpoint para dados de filtro de busca
 
-Este endpoint retorna a lista de bairros, cidades e tipos de imóveis válidos que podem ser usados nos filtros de busca.
+Este endpoint retorna as opções disponíveis de tipos de imóveis, cidades e bairros que podem ser utilizados nos filtros de busca. É possível enviar parâmetros opcionais na query para refinar os resultados, fazendo com que as opções retornadas sejam compatíveis com os critérios informados.
 
 #### Endpoint
 ```http
-GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/distinctTypesAndNeighborhoods
+GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/filter-data
 ```
+### Parâmetros da query
 
-#### Parâmetros da URL
-- `<codigo_da_imobiliaria>`: Código da imobiliária.
+- offerType: ao informar VENDA, o endpoint retorna as opções relacionadas aos imóveis disponíveis para venda. Ao informar ALUGUEL, retorna as opções relacionadas aos imóveis disponíveis para aluguel.
+- propertyTypes: ao informar um ou mais tipos de imóveis, as listas de cidades e bairros são limitadas às opções que possuem imóveis correspondentes aos tipos selecionados, respeitando também o tipo de oferta informado.
+- cities: ao informar uma ou mais cidades, a lista de bairros é limitada aos bairros disponíveis nas cidades selecionadas, respeitando os demais filtros informados.
+
+Todos os parâmetros são opcionais e podem ser combinados para refinar progressivamente as opções disponíveis. Por exemplo, uma aplicação pode primeiro consultar os tipos de imóveis para venda, depois buscar as cidades que possuem imóveis desses tipos e, por fim, apresentar apenas os bairros disponíveis nas cidades selecionadas.
+
+1. Obter opções relacionadas a imóveis à venda
+```http
+GET /api/v1/agencies/12345/properties/filter-data?offerType=VENDA
+```
+Retorna as opções de tipos de imóveis, cidades e bairros relacionadas à oferta de venda.
+
+2. Filtrar as opções por tipo de imóvel
+```http
+GET /api/v1/agencies/12345/properties/filter-data?offerType=VENDA&propertyTypes=APARTAMENTO
+```
+Retorna as opções de cidades e bairros que possuem apartamentos disponíveis para venda, além das demais opções de tipos de imóveis conforme o comportamento do endpoint.
+
+3. Filtrar os bairros por cidade
+```http
+GET /api/v1/agencies/12345/properties/filter-data?offerType=VENDA&propertyTypes=APARTAMENTO&cities=NOVA%20LIMA
+```
+Retorna os bairros disponíveis em Nova Lima que possuem apartamentos à venda, respeitando os filtros informados.
 
 #### Resposta Esperada
+
 A resposta será um JSON contendo três listas:
 
 - `neighborhoods`: Lista de bairros válidos.
@@ -168,6 +187,7 @@ A resposta será um JSON contendo três listas:
 - `propertyTypes`: Lista de tipos de imóveis válidos.
 
 **Exemplo de resposta:**
+
 ```json
 {
   "neighborhoods": [
@@ -192,13 +212,112 @@ GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/<codigo_do_imovel>/simil
 
 Retorna um array com até 4 imóveis similares ao imóvel base. Caso não haja imóveis similares, retorna um array vazio.
 
-#### Parâmetros da URL
-- `<codigo_da_imobiliaria>`: Código da imobiliária.
-- `<codigo_do_imovel>`: Código do imóvel base.
-
 As propriedades são consideradas como similares com base nos seguintes critérios:
 
 - Preço entre 80% e 120% do valor do imóvel base.
 - Mesma quantidade de quartos.
 - Mesmo tipo de imóvel (ex: casa, apartamento).
 - Mesmo tipo de oferta: `VENDA` ou `ALUGUEL`.
+
+---
+
+### Endpoint para armazenamento de leads
+
+O endpoint permite salvar mensagens de leads e pode ser utilizado por sites imobiliários, landing pages, formulários de contato e outras aplicações integradas ao Sinaionline.
+
+### Endpoint
+
+```http
+POST /api/v1/agencies/<codigo_da_imobiliaria>/leads
+```
+
+### Corpo da requisição
+
+O corpo deve ser enviado no formato JSON.
+
+| Campo         | Tipo                             | Obrigatório               | Descrição                                 |
+| ------------- | -------------------------------- | ------------------------- | ----------------------------------------- |
+| `lead_origin` | String                           | Sim                       | Origem do lead, como `SITE DA EMPRESA`    |
+| `timestamp`   | String, formato de data ISO 8601 | Sim                       | Data e hora de criação ou envio do lead   |
+| `property_id` | String                           | Não                       | Código do imóvel relacionado ao interesse |
+| `name`        | String                           | Sim                       | Nome completo do interessado              |
+| `email`       | String                           | Sim                       | E-mail do interessado                     |
+| `ddd`         | String                           | Sim                       | DDD do telefone                           |
+| `phone`       | String                           | Sim                       | Número do telefone, sem o DDD             |
+| `message`     | String                           | Sim                       | Mensagem ou descrição do interesse        |
+| `offer_type`  | String                           | Sim                       | Tipo de interesse: `VENDA` ou `ALUGUEL`   |
+
+### Exemplo de requisição cURL
+
+```bash
+curl -X POST "https://api.sinaionline.com.br/api/v1/agencies/12345/leads" \
+  -H "Authorization: XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX" \
+  -H "Content-Type: application/json" \
+  -H "Accept: application/json" \
+  -d '{
+    "lead_origin": "SITE DA EMPRESA",
+    "timestamp": "2026-10-23T10:23:00-03:00",
+    "property_id": "2801",
+    "name": "João da Silva",
+    "email": "joao@example.com",
+    "ddd": "31",
+    "phone": "999998888",
+    "message": "Tenho interesse neste imóvel. Gostaria de agendar uma visita.",
+    "offer_type": "VENDA"
+  }'
+```
+
+Substitua o código da imobiliária, o token de autorização e os dados de exemplo pelos valores reais.
+
+### Exemplo de corpo JSON
+
+```json
+{
+  "lead_origin": "SITE DA EMPRESA",
+  "timestamp": "2026-10-23T10:23:00-03:00",
+  "property_id": "2801",
+  "name": "João da Silva",
+  "email": "joao@example.com",
+  "ddd": "31",
+  "phone": "999998888",
+  "message": "Tenho interesse neste imóvel. Gostaria de agendar uma visita.",
+  "offer_type": "VENDA"
+}
+```
+
+### Regras de preenchimento
+
+- **`lead_origin`:** identifique a origem do contato, por exemplo, `SITE DA EMPRESA`, `LANDING PAGE`.
+- **`timestamp`:** envie a data e a hora em formato ISO 8601, preferencialmente com o deslocamento de fuso horário. Exemplo: `2026-10-23T10:23:00-03:00`.
+- **`property_id`:** campo opcional. Deve ser informado quando o lead estiver relacionado a um imóvel específico. Quando não houver imóvel associado, o campo pode ser omitido.
+- **`ddd`:** informe o código de área como texto, sem parênteses.
+- **`phone`:** informe o número do telefone separado do DDD.
+- **`message`:** utilize este campo para registrar a mensagem enviada pelo interessado.
+- **`offer_type`:** utilize este campo para registrar o tipo de interesse do lead, comprar ou alugar, utilize exclusivamente `VENDA` ou `ALUGUEL`.
+
+### Exemplo de envio sem imóvel associado
+
+Quando o contato não estiver vinculado a um imóvel específico, omita o campo `property_id`.
+
+```json
+{
+  "lead_origin": "LANDING PAGE",
+  "timestamp": "2026-10-23T10:23:00-03:00",
+  "name": "Maria Oliveira",
+  "email": "maria@example.com",
+  "ddd": "31",
+  "phone": "988887777",
+  "message": "Gostaria de receber informações sobre imóveis disponíveis.",
+  "offer_type": "ALUGUEL"
+}
+```
+
+### Possíveis respostas da API
+
+| Código HTTP                 | Significado                                    |
+| --------------------------- | ---------------------------------------------- |
+| `200 OK`                    | Requisição processada com sucesso              |
+| `400 Bad Request`           | Dados enviados inválidos                       |
+| `401 Unauthorized`          | Token ausente ou inválido                      |
+| `404 Not Found`             | Recurso ou imobiliária não encontrado          |
+| `500 Internal Server Error` | Erro interno no servidor                       |
