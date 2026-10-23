@@ -20,7 +20,7 @@ GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/search
 ```
 Este endpoint permite realizar buscas de imóveis, aplicando filtros conforme os parâmetros fornecidos na query.
 
-### Parâmetros da Query
+#### Parâmetros da Query
 Todos os parâmetros são **opcionais** e podem ser combinados para refinar a busca:
 
 - `offerType`: Tipo da oferta do imóvel. Aceita os valores `VENDA` ou `ALUGUEL`.
@@ -51,7 +51,7 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 - `sortDir`: Direção da ordenação. Pode ser `ASC` ou `DESC`.
 - `randomOrder`: Se `true`, os resultados serão retornados de forma aleatória.
 
-### Exemplos de Requisições
+#### Exemplos de Requisições
 
 **1. Busca por imóveis à venda em bairros específicos com preço máximo:**
 ```http
@@ -157,7 +157,7 @@ Este endpoint retorna as opções disponíveis de tipos de imóveis, cidades e b
 ```http
 GET /api/v1/agencies/<codigo_da_imobiliaria>/properties/filter-data
 ```
-### Parâmetros da query
+#### Parâmetros da query
 
 - offerType: ao informar VENDA, o endpoint retorna as opções relacionadas aos imóveis disponíveis para venda. Ao informar ALUGUEL, retorna as opções relacionadas aos imóveis disponíveis para aluguel.
 - propertyTypes: ao informar um ou mais tipos de imóveis, as listas de cidades e bairros são limitadas às opções que possuem imóveis correspondentes aos tipos selecionados, respeitando também o tipo de oferta informado.
@@ -230,13 +230,13 @@ As propriedades são consideradas como similares com base nos seguintes critéri
 
 O endpoint permite salvar mensagens de leads e pode ser utilizado por sites imobiliários, landing pages, formulários de contato e outras aplicações integradas ao Sinaionline.
 
-### Endpoint
+#### Endpoint
 
 ```http
 POST /api/v1/agencies/<codigo_da_imobiliaria>/leads
 ```
 
-### Corpo da requisição
+#### Corpo da requisição
 
 O corpo deve ser enviado no formato JSON.
 
@@ -252,7 +252,7 @@ O corpo deve ser enviado no formato JSON.
 | `message`     | String                           | Sim                       | Mensagem ou descrição do interesse        |
 | `offer_type`  | String                           | Sim                       | Tipo de interesse: `VENDA` ou `ALUGUEL`   |
 
-### Exemplo de requisição cURL
+#### Exemplo de requisição cURL
 
 ```bash
 curl -X POST "https://api.sinaionline.com.br/api/v1/agencies/12345/leads" \
@@ -274,7 +274,7 @@ curl -X POST "https://api.sinaionline.com.br/api/v1/agencies/12345/leads" \
 
 Substitua o código da imobiliária, o token de autorização e os dados de exemplo pelos valores reais.
 
-### Exemplo de corpo JSON
+#### Exemplo de corpo JSON
 
 ```json
 {
@@ -290,7 +290,7 @@ Substitua o código da imobiliária, o token de autorização e os dados de exem
 }
 ```
 
-### Regras de preenchimento
+#### Regras de preenchimento
 
 - **`lead_origin`:** identifique a origem do contato, por exemplo, `SITE DA EMPRESA`, `LANDING PAGE`.
 - **`timestamp`:** envie a data e a hora em formato ISO 8601, preferencialmente com o deslocamento de fuso horário. Exemplo: `2026-10-23T10:23:00-03:00`.
@@ -300,7 +300,7 @@ Substitua o código da imobiliária, o token de autorização e os dados de exem
 - **`message`:** utilize este campo para registrar a mensagem enviada pelo interessado.
 - **`offer_type`:** utilize este campo para registrar o tipo de interesse do lead, comprar ou alugar, utilize exclusivamente `VENDA` ou `ALUGUEL`.
 
-### Exemplo de envio sem imóvel associado
+#### Exemplo de envio sem imóvel associado
 
 Quando o contato não estiver vinculado a um imóvel específico, omita o campo `property_id`.
 
@@ -317,7 +317,7 @@ Quando o contato não estiver vinculado a um imóvel específico, omita o campo 
 }
 ```
 
-### Possíveis respostas da API
+#### Possíveis respostas da API
 
 | Código HTTP                 | Significado                                    |
 | --------------------------- | ---------------------------------------------- |
