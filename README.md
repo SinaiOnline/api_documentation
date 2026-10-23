@@ -29,6 +29,7 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 - `cities`: Nomes das cidades separados por vírgula. Para obter a lista de cidades válidas, consulte o endpoint [`filter-data`](#endpoint-para-dados-de-filtro-de-busca) abaixo.
 - `captador`: Nome do captador (corretor) responsável pelo imóvel.
 - `codes`: IDs específicos dos imóveis.
+- `hasPrivateArea`: Flag que indica se o imóvel possui área privativa (`true` ou `false`).
 - `isTop`: Flag que indica se o imóvel é destacado como "top" (`true` ou `false`).
 - `isExclusive`: Flag que indica se o imóvel é exclusivo (`true` ou `false`).
 - `isHighlight`: Flag que indica se o imóvel é destacado como "highlight" (`true` ou `false`).
@@ -37,9 +38,13 @@ Todos os parâmetros são **opcionais** e podem ser combinados para refinar a bu
 - `maxPrice`: Preço máximo do imóvel.
 - `minArea`: Área mínima do imóvel em metros quadrados.
 - `maxArea`: Área máxima do imóvel em metros quadrados.
-- `bedrooms`: Número de dormitórios.
+- `minBedrooms`: Número mínimo de dormitórios.
+- `maxBedrooms`: Número máximo de dormitórios.
+- `bedrooms`: Número exato de dormitórios.
 - `suites`: Número de suítes.
-- `garages`: Número de vagas de garagem.
+- `minGarages`: Número mínimo de vagas de garagem.
+- `maxGarages`: Número máximo de vagas de garagem.
+- `garages`: Número exato de vagas de garagem.
 - `page`: Página de resultados (para paginação).
 - `limit`: Limite de resultados por página.
 - `sortBy`: Critério de ordenação. Pode ser `price`, `registerDate` ou `updateDate` (valor padrão: `price`).
